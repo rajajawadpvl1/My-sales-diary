@@ -1,0 +1,6 @@
+{
+  "name": "My Sales Diary",
+  "description": "Personal mobile CRM for education sales executives to manage student leads, track call statuses, and never miss a follow-up offline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

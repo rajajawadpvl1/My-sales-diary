@@ -1,0 +1,33 @@
+{
+  "name": "My Sales Diary",
+  "short_name": "Sales Diary",
+  "description": "Manage Leads. Track Calls. Never Miss a Follow-up. Offline-first personal CRM.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6F8FB",
+  "theme_color": "#14264B",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">My Sales Diary</string>
+    <string name="app_tagline">Manage Leads. Track Calls. Never Miss a Follow-up.</string>
+
+    <string name="tab_notes">Notes</string>
+    <string name="tab_reminders">Reminders</string>
+
+    <string name="stat_total_leads">Total Leads</string>
+    <string name="stat_interested">Interested</string>
+    <string name="stat_due_today">Due Today</string>
+    <string name="stat_enrolled">Enrolled</string>
+
+    <string name="form_new_lead_title">Log Student Lead</string>
+    <string name="form_edit_lead_title">Edit Student Lead</string>
+    <string name="field_student_name">Student Name (Optional)</string>
+    <string name="field_phone_number">Phone Number *</string>
+    <string name="field_interested_course">Interested Course</string>
+    <string name="field_call_date">Call Date</string>
+    <string name="field_call_status">Call Status *</string>
+    <string name="field_notes">Notes / Remarks</string>
+    <string name="field_notes_placeholder">Fee inquiry, preferred batch, scholarship interest...</string>
+
+    <string name="action_save_lead">SAVE LEAD</string>
+    <string name="action_update_lead">UPDATE LEAD</string>
+    <string name="action_cancel_edit">Cancel</string>
+    <string name="action_quick_add">Add Lead</string>
+    <string name="action_call_student">Call student</string>
+    <string name="action_edit_lead">Edit lead</string>
+    <string name="action_delete_lead">Delete lead</string>
+    <string name="action_backup_tools">Backup &amp; Export</string>
+
+    <string name="search_placeholder">Search phone, name, or course</string>
+    <string name="empty_leads_title">No student leads yet</string>
+    <string name="empty_leads_subtitle">Save your first inquiry above to start tracking calls and follow-ups.</string>
+    <string name="empty_search_title">No matching leads</string>
+    <string name="empty_search_subtitle">Try a different phone number, student name, or course.</string>
+
+    <string name="reminders_overdue">Overdue</string>
+    <string name="reminders_due_today">Due Today</string>
+    <string name="reminders_upcoming">Upcoming</string>
+    <string name="empty_reminders_title">All caught up</string>
+    <string name="empty_reminders_subtitle">Interested leads and scheduled callbacks will automatically appear here when due.</string>
+
+    <string name="error_phone_required">Please enter a valid phone number.</string>
+    <string name="error_course_required">Please choose or add a course.</string>
+    <string name="error_followup_date_required">Please pick a follow-up date.</string>
+
+    <string name="backup_sheet_title">Data &amp; Backup</string>
+    <string name="backup_sheet_subtitle">All records are stored offline on this phone. Export or back up anytime.</string>
+    <string name="backup_export_csv">Export Leads to CSV</string>
+    <string name="backup_export_csv_desc">Spreadsheet-ready file for Excel or Google Sheets</string>
+    <string name="backup_export_json">Backup Data (JSON)</string>
+    <string name="backup_export_json_desc">Full offline snapshot of leads and custom courses</string>
+    <string name="backup_restore_json">Restore from JSON Backup</string>
+    <string name="backup_restore_json_desc">Import previously exported leads and courses</string>
+    <string name="manage_courses_title">Manage Courses</string>
+    <string name="manage_courses_desc">Add courses and edit names or prices anytime</string>
+</resources>

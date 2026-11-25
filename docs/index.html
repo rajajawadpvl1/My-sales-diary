@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#14264B" />
+  <meta name="description" content="Manage Leads. Track Calls. Never Miss a Follow-up. Offline-first personal CRM." />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Sales Diary" />
+  <title>My Sales Diary</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Sticky Header & Top Dashboard Summary -->
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand-row">
+          <div class="brand-copy">
+            <h1 class="app-title">My Sales Diary</h1>
+            <p class="app-tagline">Manage Leads. Track Calls. Never Miss a Follow-up.</p>
+          </div>
+          <div class="header-actions">
+            <button id="installBtn" class="icon-btn install-btn hidden" type="button" aria-label="Install app" title="Install app">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </button>
+            <button id="backupToolsBtn" class="icon-btn" type="button" aria-label="Backup and tools" title="Backup, Export &amp; Courses">
+              <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 13v8"/>
+                <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
+                <path d="m8 17 4-4 4 4"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <section class="stats-grid" aria-label="Dashboard summary">
+          <button class="stat-card" type="button" data-stat-action="notes">
+            <div class="stat-top">
+              <span class="stat-dot dot-navy"></span>
+              <span id="statTotal" class="stat-value">0</span>
+            </div>
+            <span class="stat-label">Total Leads</span>
+          </button>
+          <button class="stat-card" type="button" data-stat-action="notes">
+            <div class="stat-top">
+              <span class="stat-dot dot-green"></span>
+              <span id="statInterested" class="stat-value">0</span>
+            </div>
+            <span class="stat-label">Interested</span>
+          </button>
+          <button id="statDueTodayCard" class="stat-card" type="button" data-stat-action="reminders">
+            <div class="stat-top">
+              <span class="stat-dot dot-orange"></span>
+              <span id="statDueToday" class="stat-value">0</span>
+            </div>
+            <span class="stat-label">Due Today</span>
+          </button>
+          <button class="stat-card" type="button" data-stat-action="notes">
+            <div class="stat-top">
+              <span class="stat-dot dot-teal"></span>
+              <span id="statEnrolled" class="stat-value">0</span>
+            </div>
+            <span class="stat-label">Enrolled</span>
+          </button>
+        </section>
+      </div>
+    </header>
+
+    <!-- Main Scrollable Content -->
+    <main class="main-content">
+      <!-- TAB 1: NOTES -->
+      <section id="notesView" class="tab-view" aria-label="Notes and lead management">
+        <div id="leadFormCard" class="card form-card">
+          <div class="form-card-header">
+            <div>
+              <h2 id="formHeading" class="card-title">Log Student Lead</h2>
+              <p id="formCallDateSubtitle" class="card-subtitle"></p>
+            </div>
+            <div class="form-header-controls">
+              <label class="date-pill" title="Change call date">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span id="callDateLabel">Today</span>
+                <input id="inputCallDate" type="date" aria-label="Call date" />
+              </label>
+              <button id="toggleFormBtn" class="icon-btn-sm" type="button" aria-label="Toggle form" aria-expanded="true">
+                <svg id="toggleFormChevron" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="18 15 12 9 6 15"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <form id="leadForm" class="lead-form" novalidate>
+            <div class="field-group">
+              <label class="field-label" for="inputPhone">Phone Number *</label>
+              <input id="inputPhone" class="text-input" type="tel" inputmode="tel" autocomplete="tel" placeholder="e.g. 9876543210" required />
+              <p id="phoneError" class="field-error hidden">Please enter a valid phone number.</p>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="inputStudentName">Student Name (Optional)</label>
+              <input id="inputStudentName" class="text-input" type="text" autocomplete="name" placeholder="Student full name" />
+            </div>
+
+            <div class="field-group">
+              <div class="field-label-row">
+                <label class="field-label" for="inputCourse">Interested Course</label>
+                <button id="manageCoursesInlineBtn" class="text-action-btn" type="button">+ Add Course</button>
+              </div>
+              <select id="inputCourse" class="text-input select-input"></select>
+              <button id="selectedCoursePriceChip" class="course-price-chip hidden" type="button"></button>
+            </div>
+
+            <div class="field-group">
+              <span class="field-label">Call Status *</span>
+              <div id="statusChips" class="status-chips" role="radiogroup" aria-label="Call Status"></div>
+            </div>
+
+            <div id="followUpPanel" class="followup-panel"></div>
+
+            <div class="field-group">
+              <label class="field-label" for="inputNotes">Notes / Remarks</label>
+              <textarea id="inputNotes" class="text-input textarea-input" rows="3" placeholder="Fee inquiry, preferred batch, scholarship interest..."></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button id="cancelEditBtn" class="btn btn-outline hidden" type="button">Cancel</button>
+              <button id="saveLeadBtn" class="btn btn-primary btn-grow" type="submit">SAVE LEAD</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="section-header-row">
+          <h2 class="section-title">Saved Leads</h2>
+          <span id="leadCountBadge" class="muted-meta">0 total</span>
+        </div>
+
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input id="searchInput" class="search-input" type="search" placeholder="Search phone, name, or course" aria-label="Search leads" />
+          <button id="clearSearchBtn" class="search-clear hidden" type="button" aria-label="Clear search">&times;</button>
+        </div>
+
+        <div id="leadsList" class="card-stack"></div>
+      </section>
+
+      <!-- TAB 2: REMINDERS -->
+      <section id="remindersView" class="tab-view hidden" aria-label="Follow-up reminders">
+        <div id="remindersContainer" class="card-stack"></div>
+      </section>
+    </main>
+
+    <!-- Floating Quick Add Button (Notes screen only) -->
+    <button id="fabAddLead" class="fab" type="button" aria-label="Add new lead" title="Add new lead">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </button>
+
+    <!-- Clean Two-Tab Bottom Navigation Bar -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button id="tabNotesBtn" class="nav-item active" type="button" data-tab="notes">
+        <span class="nav-pill">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+          </svg>
+        </span>
+        <span class="nav-label">Notes</span>
+      </button>
+      <button id="tabRemindersBtn" class="nav-item" type="button" data-tab="reminders">
+        <span class="nav-pill">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+          </svg>
+          <span id="remindersNavBadge" class="nav-badge hidden">0</span>
+        </span>
+        <span class="nav-label">Reminders</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Backup & Tools Bottom Sheet -->
+  <div id="backupSheetBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="backupSheetTitle">
+    <div class="bottom-sheet">
+      <div class="sheet-handle"></div>
+      <h2 id="backupSheetTitle" class="modal-title">Data &amp; Backup</h2>
+      <p class="modal-subtitle">All records are stored permanently offline on this phone using IndexedDB.</p>
+
+      <div class="sheet-actions">
+        <button id="exportCsvBtn" class="sheet-item" type="button">
+          <span class="sheet-icon">CSV</span>
+          <span class="sheet-item-text">
+            <strong>Export Leads to CSV</strong>
+            <small id="exportCsvMeta">Spreadsheet-ready file for Excel or Google Sheets</small>
+          </span>
+        </button>
+
+        <button id="exportJsonBtn" class="sheet-item" type="button">
+          <span class="sheet-icon">JSON</span>
+          <span class="sheet-item-text">
+            <strong>Backup Data (JSON)</strong>
+            <small>Full offline snapshot of leads, courses, and prices</small>
+          </span>
+        </button>
+
+        <button id="restoreJsonBtn" class="sheet-item" type="button">
+          <span class="sheet-icon">IMP</span>
+          <span class="sheet-item-text">
+            <strong>Restore from JSON Backup</strong>
+            <small>Import previously exported leads and courses</small>
+          </span>
+        </button>
+
+        <button id="sheetManageCoursesBtn" class="sheet-item" type="button">
+          <span class="sheet-icon">CRS</span>
+          <span class="sheet-item-text">
+            <strong>Manage Courses</strong>
+            <small>Add courses and edit names or prices anytime</small>
+          </span>
+        </button>
+      </div>
+
+      <button id="closeBackupSheetBtn" class="btn btn-outline btn-full" type="button">Close</button>
+    </div>
+  </div>
+  <input id="restoreFileInput" type="file" accept=".json,application/json,text/plain" class="hidden" />
+
+  <!-- Manage Courses & Prices Modal -->
+  <div id="coursesModalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="coursesModalTitle">
+    <div class="dialog-card">
+      <h2 id="coursesModalTitle" class="modal-title">Manage Courses</h2>
+      <p id="coursesModalSubtitle" class="modal-subtitle">Add courses with their fee and edit anytime.</p>
+
+      <form id="courseForm" class="course-form" novalidate>
+        <div class="field-group">
+          <label class="field-label" for="courseNameInput">Course Name *</label>
+          <input id="courseNameInput" class="text-input" type="text" placeholder="e.g. Digital Marketing" required />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="coursePriceInput">Course Price / Fee (Optional)</label>
+          <input id="coursePriceInput" class="text-input" type="text" placeholder="e.g. 25,000 or $499" />
+        </div>
+        <div class="form-actions">
+          <button id="cancelCourseEditBtn" class="btn btn-outline hidden" type="button">Cancel</button>
+          <button id="saveCourseBtn" class="btn btn-primary btn-grow" type="submit">Add Course</button>
+        </div>
+      </form>
+
+      <hr class="divider" />
+      <div id="coursesModalList" class="courses-list"></div>
+
+      <div class="dialog-footer">
+        <button id="closeCoursesModalBtn" class="btn btn-outline" type="button">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reschedule Reminder Modal (Call Back / Not Connected) -->
+  <div id="rescheduleModalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="rescheduleModalTitle">
+    <div class="dialog-card">
+      <h2 id="rescheduleModalTitle" class="modal-title">Schedule Call Back</h2>
+      <p id="rescheduleLeadMeta" class="modal-subtitle"></p>
+
+      <div class="quick-date-row">
+        <button class="chip-btn" type="button" data-quick-offset="0">Today</button>
+        <button class="chip-btn" type="button" data-quick-offset="1">Tomorrow</button>
+        <button class="chip-btn" type="button" data-quick-offset="2">+2 Days</button>
+      </div>
+
+      <div class="datetime-row">
+        <div class="field-group">
+          <label class="field-label" for="rescheduleDateInput">Next Date</label>
+          <input id="rescheduleDateInput" class="text-input" type="date" />
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="rescheduleTimeInput">Time (Optional)</label>
+          <input id="rescheduleTimeInput" class="text-input" type="time" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="rescheduleNoteInput">Update Notes (Optional)</label>
+        <textarea id="rescheduleNoteInput" class="text-input textarea-input" rows="2"></textarea>
+      </div>
+
+      <div class="dialog-footer">
+        <button id="cancelRescheduleBtn" class="btn btn-outline" type="button">Cancel</button>
+        <button id="confirmRescheduleBtn" class="btn btn-primary" type="button">Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteModalBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="dialog-card">
+      <h2 id="deleteModalTitle" class="modal-title">Delete Lead?</h2>
+      <p id="deleteModalBody" class="modal-subtitle"></p>
+      <div class="dialog-footer">
+        <button id="cancelDeleteBtn" class="btn btn-outline" type="button">Cancel</button>
+        <button id="confirmDeleteBtn" class="btn btn-danger" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
